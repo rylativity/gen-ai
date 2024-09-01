@@ -1,0 +1,16 @@
+venv/
+.venv/
+venv_backup/
+*.pyc
+
+.env
+
+notebooks/data/
+.ipynb_checkpoints/
+
+*.db
+*.faiss
+*faiss*.json
+volumes/
+
+streamlit_app/uploaded_files/
