@@ -32,8 +32,6 @@ services:
   #   #           count: all
   #   #           capabilities: [gpu]
     
-
-  
   postgres:
     image: postgres:14
     environment:
