@@ -12,25 +12,30 @@ services:
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres
       - RAG_WEB_SEARCH_ENGINE=searxng
       - SEARXNG_QUERY_URL=http://host.docker.internal:8080/search?q=<query>
+      
+      # Comment out below if not using stable-diffusion-webui
+      - AUTOMATIC1111_BASE_URL=http://host.docker.internal:7860/ 
+      - ENABLE_IMAGE_GENERATION=True
     volumes:
       - open-webui:/app/backend/data
     depends_on:
       - postgres
-
-  # ollama:
-  #   image: ollama/ollama
-  #   container_name: ollama
-  #   ports:
-  #     - 11434:11434
-  #   volumes:
-  #     - ollama:/root/.ollama
-  #   # deploy:
-  #   #   resources:
-  #   #     reservations:
-  #   #       devices:
-  #   #         - driver: nvidia
-  #   #           count: all
-  #   #           capabilities: [gpu]
+  
+  # Comment out the ollama service if you are running directly on your host machine (e.g. to take advantage of Apple silicon)
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - 11434:11434
+    volumes:
+      - ollama:/root/.ollama
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
     
   postgres:
     image: postgres:14
@@ -44,6 +49,15 @@ services:
       test: ["CMD", "pg_isready","-U", "postgres"]
     restart: always
   
+  pipelines:
+    image: ghcr.io/open-webui/pipelines:main
+    ports:
+      - 9099:9099
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    volumes:
+      - pipelines:/app/pipelines
+
   searxng:
     image: searxng/searxng:latest
     container_name: searxng
@@ -51,7 +65,7 @@ services:
       - 8080:8080
     volumes:
       - ./searxng:/etc/searxng
-
+  
   jupyter:
     image: generative-ai-jupyter-cpu
     build: 
@@ -125,7 +139,9 @@ services:
   #     - elasticsearch                                   # kibana will start when elasticsearch has started
 
 volumes:
+  ollama:
   open-webui:
+  pipelines:
   postgres-db:
   # elasticsearch-data:
   opensearch-data:
