@@ -8,7 +8,6 @@ venv_backup/
 notebooks/data/
 .ipynb_checkpoints/
 
-*.db
 *.faiss
 *faiss*.json
 volumes/
