@@ -21,7 +21,7 @@ services:
     depends_on:
       - postgres
   
-  Comment out the ollama service if you are running directly on your host machine (e.g. to take advantage of Apple silicon)
+  # Comment out the ollama service if you are running directly on your host machine (e.g. to take advantage of Apple silicon)
   ollama:
     image: ollama/ollama
     container_name: ollama
