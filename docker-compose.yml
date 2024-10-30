@@ -21,7 +21,7 @@ services:
     depends_on:
       - postgres
   
-  # Comment out the ollama service if you are running directly on your host machine (e.g. to take advantage of Apple silicon)
+  Comment out the ollama service if you are running directly on your host machine (e.g. to take advantage of Apple silicon)
   ollama:
     image: ollama/ollama
     container_name: ollama
@@ -67,17 +67,13 @@ services:
       - ./searxng:/etc/searxng
   
   jupyter:
-    image: generative-ai-jupyter-cpu
     build: 
       context: ./jupyter
-      args:
-        - PROCESSOR=cpu
     ports: 
       - 8888:8888
     volumes:
       - ./data:/workspace/data
       - ./jupyter/notebooks/:/workspace/notebooks/
-      - ./.env:/workspace/.env
       - ~/.cache/:/root/.cache/
 
   # opensearch: # This is also the hostname of the container within the Docker network (i.e. https://opensearch-node1/)
