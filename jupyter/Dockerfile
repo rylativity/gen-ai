@@ -1,6 +1,7 @@
 FROM python:3.13-bullseye
 
-# RUN apt-get update && apt-get install -y openjdk-11-jdk
+RUN apt-get update && apt-get install -y swig
+    # openjdk-11-jdk
 
 COPY ./requirements.txt .
 
