@@ -45,6 +45,7 @@ services:
       - POSTGRES_DB=postgres
     volumes:
       - postgres-db:/var/lib/postgresql/data
+      - ./langfuse/init-langfuse-db.sql:/docker-entrypoint-initdb.d/init-langfuse-db.sql
     healthcheck:
       test: ["CMD", "pg_isready","-U", "postgres"]
     restart: always
@@ -57,6 +58,31 @@ services:
       - host.docker.internal:host-gateway
     volumes:
       - pipelines:/app/pipelines
+  
+  langfuse:
+    image: langfuse/langfuse:2
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "3001:3000"
+    environment:
+      - DATABASE_URL=postgresql://langfuse:langfuse@postgres:5432/langfuse
+      - NEXTAUTH_SECRET=mysecret
+      - SALT=mysalt
+      - ENCRYPTION_KEY=0000000000000000000000000000000000000000000000000000000000000000 # generate via `openssl rand -hex 32`
+      - NEXTAUTH_URL=http://localhost:3000
+      - TELEMETRY_ENABLED=${TELEMETRY_ENABLED:-true}
+      - LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES=${LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES:-false}
+      - LANGFUSE_INIT_ORG_ID=${LANGFUSE_INIT_ORG_ID:-my-org}
+      - LANGFUSE_INIT_ORG_NAME=${LANGFUSE_INIT_ORG_NAME:-My Org}
+      - LANGFUSE_INIT_PROJECT_ID=${LANGFUSE_INIT_PROJECT_ID:-my-project}
+      - LANGFUSE_INIT_PROJECT_NAME=${LANGFUSE_INIT_PROJECT_NAME:-My Project}
+      - LANGFUSE_INIT_PROJECT_PUBLIC_KEY=${LANGFUSE_INIT_PROJECT_PUBLIC_KEY:-lf_pk_1234567890}
+      - LANGFUSE_INIT_PROJECT_SECRET_KEY=${LANGFUSE_INIT_PROJECT_SECRET_KEY:-lf_sk_1234567890}
+      - LANGFUSE_INIT_USER_EMAIL=${LANGFUSE_INIT_USER_EMAIL:-langfuse@example.com}
+      - LANGFUSE_INIT_USER_NAME=${LANGFUSE_INIT_USER_NAME:-langfuse}
+      - LANGFUSE_INIT_USER_PASSWORD=${LANGFUSE_INIT_USER_PASSWORD:-langfuse}
 
   searxng:
     image: searxng/searxng:latest
@@ -108,11 +134,12 @@ services:
       DISABLE_SECURITY_DASHBOARDS_PLUGIN: true
   
   # elasticsearch:
-  #   image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0 #7.17.16
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:8.16.1 #8.12.0 #7.17.16
   #   restart: always
   #   environment:
   #     - xpack.security.enabled=false
   #     - discovery.type=single-node
+  #     - telemetry.optIn=false
   #   ulimits:
   #     memlock:
   #       soft: -1
@@ -125,20 +152,27 @@ services:
   #   ports:
   #     - 9200:9200
   # kibana:
-  #   image: docker.elastic.co/kibana/kibana:8.12.0 #7.17.16
+  #   image: docker.elastic.co/kibana/kibana:8.16.1 #8.12.0 #7.17.16
   #   restart: always
   #   environment:
   #     - ELASTICSEARCH_HOSTS=http://elasticsearch:9200    # address of elasticsearch docker container which kibana will connect
   #   ports:
   #     - 5601:5601
   #   depends_on:
-  #     - elasticsearch                                   # kibana will start when elasticsearch has started
+  #     - elasticsearch
+  # crawler:
+  #   image: docker.elastic.co/integrations/crawler:${CRAWLER_VERSION:-0.2.0}
+  #   container_name: crawler
+  #   volumes:
+  #     - ./crawler/config:/app/config
+  #   stdin_open: true   # Equivalent to -i
+  #   tty: true                                    # kibana will start when elasticsearch has started
 
 volumes:
   ollama:
   open-webui:
   pipelines:
   postgres-db:
-  # elasticsearch-data:
+  elasticsearch-data:
   opensearch-data:
   
