@@ -1,4 +1,4 @@
-FROM python:3.12-bullseye
+FROM python:3.10-bullseye
 
 RUN apt-get update && apt-get install -y swig && pip install uv
     # openjdk-11-jdk

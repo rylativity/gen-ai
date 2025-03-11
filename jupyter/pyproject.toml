@@ -9,6 +9,11 @@ dependencies = [
     "langchain-community>=0.3.19",
     "langchain-core>=0.3.43",
     "langchain-ollama>=0.2.3",
+    "neo4j>=5.28.1",
+    "numpy<2",
     "opensearch-py>=2.8.0",
     "pandas>=2.2.3",
+    "pip>=25.0.1",
+    "spacy==3.7",
 ]
+

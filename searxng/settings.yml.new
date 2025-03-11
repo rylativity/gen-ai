@@ -95,7 +95,7 @@ server:
   # If your instance owns a /etc/searxng/settings.yml file, then set the following
   # values there.
 
-  secret_key: "002630fd84f3de75a1b7ea68db45a57be168379de051b651b2d30b175152ca28"  # Is overwritten by ${SEARXNG_SECRET}
+  secret_key: "f61f26c45032198b60ac4cfc58a328d15a0f681cf72b72045c2ca31430a8ea8a"  # Is overwritten by ${SEARXNG_SECRET}
   # Proxy image results through SearXNG. Is overwritten by ${SEARXNG_IMAGE_PROXY}
   image_proxy: false
   # 1.0 and 1.1 are supported
@@ -352,6 +352,11 @@ engines:
     shortcut: 9g
     disabled: true
 
+  - name: acfun
+    engine: acfun
+    shortcut: acf
+    disabled: true
+
   - name: adobe stock
     engine: adobe_stock
     shortcut: asi
@@ -496,6 +501,11 @@ engines:
     shortcut: bc
     categories: music
 
+  - name: baidu
+    engine: baidu
+    shortcut: baidu
+    disabled: true
+
   - name: wikipedia
     engine: wikipedia
     shortcut: wp
@@ -572,6 +582,24 @@ engines:
     shortcut: chef
     # to show premium or plus results too:
     # skip_premium: false
+
+  - name: chinaso news
+    chinaso_category: news
+    engine: chinaso
+    shortcut: chinaso
+    disabled: true
+
+  - name: chinaso images
+    chinaso_category: images
+    engine: chinaso
+    shortcut: chinasoi
+    disabled: true
+
+  - name: chinaso videos
+    chinaso_category: videos
+    engine: chinaso
+    shortcut: chinasov
+    disabled: true
 
   - name: cloudflareai
     engine: cloudflareai
@@ -1098,6 +1126,11 @@ engines:
   - name: ipernity
     engine: ipernity
     shortcut: ip
+    disabled: true
+
+  - name: iqiyi
+    engine: iqiyi
+    shortcut: iq
     disabled: true
 
   - name: jisho
