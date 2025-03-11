@@ -22,20 +22,20 @@ services:
       - postgres
   
   # Comment out the ollama service if you are running directly on your host machine (e.g. to take advantage of Apple silicon)
-  ollama:
-    image: ollama/ollama
-    container_name: ollama
-    ports:
-      - 11434:11434
-    volumes:
-      - ollama:/root/.ollama
-    # deploy:
-    #   resources:
-    #     reservations:
-    #       devices:
-    #         - driver: nvidia
-    #           count: all
-    #           capabilities: [gpu]
+  # ollama:
+  #   image: ollama/ollama
+  #   container_name: ollama
+  #   ports:
+  #     - 11434:11434
+  #   volumes:
+  #     - ollama:/root/.ollama
+  #   # deploy:
+  #   #   resources:
+  #   #     reservations:
+  #   #       devices:
+  #   #         - driver: nvidia
+  #   #           count: all
+  #   #           capabilities: [gpu]
     
   postgres:
     image: postgres:14

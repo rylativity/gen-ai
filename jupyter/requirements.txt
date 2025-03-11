@@ -1,6 +1,0 @@
-jupyterlab
-pandas
-langchain-core
-langchain-ollama
-langchain-community
-opensearch-py

@@ -2,11 +2,13 @@ venv/
 .venv/
 venv_backup/
 *.pyc
+.python-version
 
 .env
 
 notebooks/data/
 .ipynb_checkpoints/
+.Trash-*/
 
 *.faiss
 *faiss*.json
