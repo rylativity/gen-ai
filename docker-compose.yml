@@ -101,6 +101,8 @@ services:
       - ./data:/workspace/data
       - ./jupyter/notebooks/:/workspace/notebooks/
       - ~/.cache/:/root/.cache/
+    extra_hosts:
+      - host.docker.internal:host-gateway
 
   opensearch: # This is also the hostname of the container within the Docker network (i.e. https://opensearch-node1/)
     image: opensearchproject/opensearch:latest # Specifying the latest available image - modify if you want a specific version
@@ -131,7 +133,22 @@ services:
       - "5601" # Expose port 5601 for web access to OpenSearch Dashboards
     environment:
       OPENSEARCH_HOSTS: '["http://opensearch:9200"]' # Define the OpenSearch nodes that OpenSearch Dashboards will query
-      DISABLE_SECURITY_DASHBOARDS_PLUGIN: true
+      DISABLE_SECURITY_DASHBOARDS_PLUGIN: true'
+  neo4j:
+    image: neo4j:latest
+    volumes:
+        - ./neo4j/logs:/logs
+        - ./neo4j/config:/config
+        - ./neo4j/data:/data
+        - ./neo4j/plugins:/plugins
+    environment:
+        - NEO4J_AUTH=neo4j/password
+        - NEO4JLABS_PLUGINS=["apoc"]
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    extra_hosts:
+      - host.docker.internal:host-gateway
   
   # elasticsearch:
   #   image: docker.elastic.co/elasticsearch/elasticsearch:8.16.1 #8.12.0 #7.17.16

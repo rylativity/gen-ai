@@ -13,5 +13,6 @@ notebooks/data/
 *.faiss
 *faiss*.json
 volumes/
+neo4j/
 
 streamlit_app/uploaded_files/
