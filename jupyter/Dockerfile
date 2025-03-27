@@ -1,6 +1,8 @@
 FROM python:3.12-bullseye
 
-RUN apt-get update && apt-get install -y swig && pip install uv
+RUN apt-get update && apt-get install -y swig && pip install uv \
+    #install rust/cargo
+    && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     # openjdk-11-jdk
 
 # COPY ./requirements.txt .
