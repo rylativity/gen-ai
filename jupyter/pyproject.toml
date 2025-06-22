@@ -9,7 +9,9 @@ dependencies = [
     "langchain-community>=0.3.19",
     "langchain-core>=0.3.43",
     "langchain-ollama>=0.2.3",
+    "langgraph>=0.3.25",
     "neo4j-graphrag>=1.6.0",
     "opensearch-py>=2.8.0",
     "pandas>=2.2.3",
+    "pillow>=11.2.1",
 ]
