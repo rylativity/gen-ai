@@ -1,0 +1,3 @@
+CREATE USER litellm WITH PASSWORD 'litellm';
+CREATE DATABASE litellm;
+GRANT ALL PRIVILEGES ON DATABASE litellm TO litellm;

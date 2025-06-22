@@ -1,0 +1,5 @@
+model_list:
+  - model_name: qwen3-30b-moe-ollama
+    litellm_params:
+      model: ollama/qwen3:30b
+      api_base: http://host.docker.internal:11434
