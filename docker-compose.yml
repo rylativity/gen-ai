@@ -52,6 +52,10 @@ services:
       LITELLM_SALT_KEY: "sk-CHANGEME" # Can NOT CHANGE THIS ONCE SET - It is used to encrypt/decrypt credentials stored in DB. If value of 'LITELLM_SALT_KEY' changes your models cannot be retrieved from DB
       ## OPTIONAL ##
       PORT: 4000 # DO THIS FOR RENDER/RAILWAY
+      LANGFUSE_PUBLIC_KEY: "lf_pk_1234567890"
+      LANGFUSE_SECRET_KEY: "lf_sk_1234567890"
+      # Optional, defaults to https://cloud.langfuse.com
+      LANGFUSE_HOST: "http://langfuse:3000"
     # env_file:
     #   - .env # Load local .env file
     depends_on:
