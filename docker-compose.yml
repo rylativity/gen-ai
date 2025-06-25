@@ -48,6 +48,10 @@ services:
     environment:
       DATABASE_URL: "postgresql://litellm:litellm@postgres:5432/litellm"
       STORE_MODEL_IN_DB: "True" # allows adding models to proxy via UI
+      LITELLM_MASTER_KEY: "sk-1234" # Your master key for the proxy server. Can use this to send /chat/completion requests etc
+      LITELLM_SALT_KEY: "sk-CHANGEME" # Can NOT CHANGE THIS ONCE SET - It is used to encrypt/decrypt credentials stored in DB. If value of 'LITELLM_SALT_KEY' changes your models cannot be retrieved from DB
+      ## OPTIONAL ##
+      PORT: 4000 # DO THIS FOR RENDER/RAILWAY
     # env_file:
     #   - .env # Load local .env file
     depends_on:
