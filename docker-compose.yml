@@ -12,10 +12,13 @@ services:
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres
       - RAG_WEB_SEARCH_ENGINE=searxng
       - SEARXNG_QUERY_URL=http://host.docker.internal:8080/search?q=<query>
-      
       # Comment out below if not using stable-diffusion-webui
       - AUTOMATIC1111_BASE_URL=http://host.docker.internal:7860/ 
       - ENABLE_IMAGE_GENERATION=True
+      # The OpenAI variables below are used to configure litellm through it's OpenAI-compatible API
+      - ENABLE_OPENAI_API=True
+      - OPENAI_API_BASE_URL=http://litellm:4000/v1
+      - OPENAI_API_KEY=sk-1234
     volumes:
       - open-webui:/app/backend/data
     depends_on:
