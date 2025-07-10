@@ -7,6 +7,11 @@ model_list:
     litellm_params:
       model: ollama_chat/mistral-small3.2
       api_base: http://host.docker.internal:11434
+
 litellm_settings:
   success_callback: ["langfuse"]
+  callbacks: ["otel"]
+
+general_settings:
+  otel: true
   
