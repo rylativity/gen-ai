@@ -70,7 +70,13 @@ services:
       retries: 3     # Retry up to 3 times if health check fails
       start_period: 40s  # Wait 40 seconds after container start before beginning health checks
 
-    
+  langflow:
+    image: langflowai/langflow:latest
+    ports:
+      - 7860:7860
+    environment:
+      - OLLAMA_HOST=http://host.docker.internal:11434
+      
   postgres:
     image: postgres:14
     environment:
