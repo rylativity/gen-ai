@@ -1,0 +1,1 @@
+{"pipelines": ["*"], "priority": 0, "secret_key": "lf_sk_1234567890", "public_key": "lf_pk_1234567890", "host": "http://langfuse:3000", "insert_tags": true, "use_model_name_instead_of_id_for_generation": false, "debug": false}

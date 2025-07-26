@@ -19,6 +19,9 @@ services:
       - ENABLE_OPENAI_API=True
       - OPENAI_API_BASE_URL=http://litellm:4000/v1
       - OPENAI_API_KEY=sk-1234
+      - LANGFUSE_PUBLIC_KEY=lf_pk_1234567890
+      - LANGFUSE_SECRET_KEY=lf_sk_1234567890
+      - LANGFUSE_HOST=http://langfuse:3000
     volumes:
       - open-webui:/app/backend/data
     depends_on:
@@ -97,10 +100,14 @@ services:
     image: ghcr.io/open-webui/pipelines:main
     ports:
       - 9099:9099
+    environment:
+      - LANGFUSE_PUBLIC_KEY=lf_pk_1234567890
+      - LANGFUSE_SECRET_KEY=lf_sk_1234567890
+      - LANGFUSE_HOST=http://langfuse:3000
     extra_hosts:
       - host.docker.internal:host-gateway
     volumes:
-      - pipelines:/app/pipelines
+      - ./langfuse/pipelines:/app/pipelines
   
   langfuse:
     image: langfuse/langfuse:2
