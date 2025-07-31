@@ -1,0 +1,32 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+    timeout: 1s
+    send_batch_size: 1024
+
+exporters:
+  debug:
+    verbosity: detailed
+  otlphttp/elastic:
+    endpoint: "http://elasticsearch:9200"
+    headers: 
+      "Content-Type": "application/json"
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp]
+      exporters: [debug, otlphttp/elastic]
+    traces:
+      receivers: [otlp]
+      exporters: [debug, otlphttp/elastic]
+    logs: 
+      receivers: [otlp]
+      exporters: [debug, otlphttp/elastic]
