@@ -1,11 +1,15 @@
 model_list:
+  - model_name: mistral-small-3.2-ollama
+    litellm_params:
+      model: ollama_chat/mistral-small3.2
+      api_base: http://host.docker.internal:11434
   - model_name: qwen3-30b-moe-ollama
     litellm_params:
       model: ollama_chat/qwen3:30b
       api_base: http://host.docker.internal:11434
-  - model_name: mistral-small-3.2-ollama
+  - model_name: gemma-3-12b-ollama
     litellm_params:
-      model: ollama_chat/mistral-small3.2
+      model: ollama_chat/gemma3:12b
       api_base: http://host.docker.internal:11434
 
 litellm_settings:
