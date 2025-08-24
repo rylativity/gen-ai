@@ -102,6 +102,7 @@ services:
       - ./litellm/init-litellm-db.sql:/docker-entrypoint-initdb.d/init-litellm-db.sql
     healthcheck:
       test: ["CMD", "pg_isready","-U", "postgres"]
+      start_period: 5s
     restart: always
   
   pipelines:
@@ -112,6 +113,11 @@ services:
       - LANGFUSE_PUBLIC_KEY=lf_pk_1234567890
       - LANGFUSE_SECRET_KEY=lf_sk_1234567890
       - LANGFUSE_HOST=http://langfuse:3000
+      - ENABLE_RAG_WEB_SEARCH=True
+      - RAG_WEB_SEARCH_ENGINE="searxng"
+      - RAG_WEB_SEARCH_RESULT_COUNT=3
+      - RAG_WEB_SEARCH_CONCURRENT_REQUESTS=10
+      - SEARXNG_QUERY_URL="http://searxng:8080/search?q=<query>"
     extra_hosts:
       - host.docker.internal:host-gateway
     volumes:
